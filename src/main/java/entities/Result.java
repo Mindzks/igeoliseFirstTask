@@ -1,36 +1,30 @@
 package entities;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class Result {
-    private String region;
-    private List<String> matched_locations;
+public final class Result {
+    private final String region;
+    private final List<String> matchedLocations;
 
     public String getRegion() {
         return region;
     }
-
-    public Result() {
-    }
-
-
-    public Result(List<String> matched_locations) {
-        this.matched_locations = matched_locations;
-    }
-
-    public void setRegion(String region) {
+    @JsonCreator
+    public Result(@JsonProperty("region") String region,@JsonProperty("matchedLocations") List<String> matchedLocations) {
         this.region = region;
+        this.matchedLocations = matchedLocations;
     }
 
-    public List<String> getMatched_locations() {
-        return matched_locations;
+    public List<String>  getLocations(){
+        List<String> currentLocations = new ArrayList<>();
+        for (String location: this.matchedLocations){
+            currentLocations.add(location);
+        }
+        return currentLocations;
     }
 
-    public void setMatched_locations(List<String> matched_locations) {
-        this.matched_locations = matched_locations;
-    }
-
-    public void addMatcehdLocation(String location){
-        matched_locations.add(location);
-    }
 }
